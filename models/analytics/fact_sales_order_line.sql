@@ -34,13 +34,13 @@ WITH
     )
 
 SELECT 
-  sales_order_line_key,
-  quantity,
-  unit_price,
+  fact_line.sales_order_line_key,
+  fact_line.quantity,
+  fact_line.unit_price,
   fact_line.sales_order_key,
-  product_key,
-  gross_amount,
-  customer_key
+  fact_line.product_key,
+  fact_line.gross_amount,
+  fact_header.customer_key
 FROM
   fact_sales_order_line__calculate_fact AS fact_line
 JOIN 
