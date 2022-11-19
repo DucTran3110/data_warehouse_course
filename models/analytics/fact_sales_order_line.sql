@@ -37,8 +37,13 @@ SELECT
   sales_order_line_key,
   quantity,
   unit_price,
-  sales_order_key,
+  fact_line.sales_order_key,
   product_key,
   gross_amount,
+  customer_key
 FROM
-  fact_sales_order_line__calculate_fact
+  fact_sales_order_line__calculate_fact AS fact_line
+JOIN 
+  `ductran.wide_world_importers_dwh_staging.stg_fact_sales_order` AS fact_header
+ON
+  fact_line.sales_order_key = fact_header.sales_order_key
