@@ -20,8 +20,11 @@ WITH dim_product__source as (
   FROM dim_product__rename_col
   )
 SELECT 
-  product_key,
-  product_name,
-  brand_name,
-  supplier_key
-FROM dim_product__cast
+  dim_product.product_key,
+  dim_product.product_name,
+  dim_product.brand_name,
+  dim_supplier.supplier_key,
+  dim_supplier.supplier_name
+FROM dim_product__cast as dim_product
+JOIN {{ref('dim_supplier')}} as dim_supplier
+ON dim_supplier.supplier_key = dim_product.supplier_key
