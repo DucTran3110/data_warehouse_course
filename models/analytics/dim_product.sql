@@ -36,7 +36,7 @@ WITH dim_product__source as (
 SELECT 
   dim_product.product_key,
   dim_product.product_name,
-  dim_product.brand_name,
+  COALESCE(dim_product.brand_name,'Undefined') as brand_name,
   dim_product.is_chiller_stock,
   dim_supplier.supplier_key,
   dim_supplier.supplier_name
