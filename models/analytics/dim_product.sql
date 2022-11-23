@@ -8,7 +8,8 @@ WITH dim_product__source as (
     stock_item_id as product_key,
     stock_item_name as product_name,
     brand as brand_name,
-    supplier_id as supplier_key
+    supplier_id as supplier_key,
+    is_chiller_stock,
     FROM dim_product__source
   ),
   dim_product__cast AS (
@@ -16,13 +17,15 @@ WITH dim_product__source as (
     CAST(product_key AS INTEGER) AS product_key,
     CAST(product_name AS STRING) AS product_name,
     CAST(brand_name AS STRING) AS brand_name,
-    CAST(supplier_key AS INTEGER) AS supplier_key
+    CAST(supplier_key AS INTEGER) AS supplier_key,
+    CAST(is_chiller_stock AS BOOLEAN) AS is_chiller_stock
   FROM dim_product__rename_col
   )
 SELECT 
   dim_product.product_key,
   dim_product.product_name,
   dim_product.brand_name,
+  dim_product.is_chiller_stock,
   dim_supplier.supplier_key,
   dim_supplier.supplier_name
 FROM dim_product__cast as dim_product
