@@ -38,8 +38,8 @@ SELECT
   dim_product.product_name,
   COALESCE(dim_product.brand_name,'Undefined') as brand_name,
   dim_product.is_chiller_stock,
-  dim_supplier.supplier_key,
-  dim_supplier.supplier_name
+  dim_product.supplier_key,
+  COALESCE(dim_supplier.supplier_name,'Error') as supplier_name
 FROM dim_product__convert_boolean as dim_product
 LEFT JOIN {{ref('dim_supplier')}} as dim_supplier
 ON dim_supplier.supplier_key = dim_product.supplier_key
