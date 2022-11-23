@@ -26,5 +26,5 @@ SELECT
   dim_supplier.supplier_key,
   dim_supplier.supplier_name
 FROM dim_product__cast as dim_product
-JOIN {{ref('dim_supplier')}} as dim_supplier
+LEFT JOIN {{ref('dim_supplier')}} as dim_supplier
 ON dim_supplier.supplier_key = dim_product.supplier_key
