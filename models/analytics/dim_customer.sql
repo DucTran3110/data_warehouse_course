@@ -28,9 +28,9 @@ SELECT
   dim_customer.customer_key
   , dim_customer.customer_name
   , dim_customer.customer_category_key
-  , dim_customer.buying_group_key
-  , dim_customer_category.customer_category_name
-  , dim_buying_group.buying_group_name
+  , COALESCE(dim_customer.buying_group_key,0) as buying_group_key
+  , COALESCE(dim_customer_category.customer_category_name,'Error') as customer_category_name
+  , COALESCE(dim_buying_group.buying_group_name,'Error') as buying_group_name
 FROM
   dim_customer__cast as dim_customer
 LEFT JOIN 
