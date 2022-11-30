@@ -42,6 +42,7 @@ SELECT
   ,fact_line.gross_amount
   ,fact_header.customer_key
   ,fact_header.picked_by_person_key
+  ,fact_header.order_date
 FROM
   fact_sales_order_line__calculate_fact AS fact_line
 LEFT JOIN 
