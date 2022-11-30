@@ -40,8 +40,8 @@ SELECT
   ,fact_line.sales_order_key
   ,fact_line.product_key
   ,fact_line.gross_amount
-  ,fact_header.customer_key
-  ,fact_header.picked_by_person_key
+  ,COALESCE(fact_header.customer_key,-1) as customer_key
+  ,COALESCE(fact_header.picked_by_person_key,-1) as picked_by_person_key
   ,fact_header.order_date
 FROM
   fact_sales_order_line__calculate_fact AS fact_line
