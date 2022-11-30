@@ -25,7 +25,7 @@ WITH
 SELECT
   sales_order_key
   , customer_key
-  , COALESCE(picked_by_person_key,0) as picked_by_person_key
+  , COALESCE(picked_by_person_key,-1) as picked_by_person_key
 FROM
   fact_sales_order__cast
   
