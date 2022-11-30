@@ -28,5 +28,5 @@ SELECT
 FROM dim_person__cast
 UNION ALL
 SELECT
-  -1 as person_key
+  0 as person_key
   ,'Undefined' as full_name
