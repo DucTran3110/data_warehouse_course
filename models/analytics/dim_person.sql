@@ -21,8 +21,12 @@ WITH dim_person__source as
   FROM
   dim_person__rename
 )
+
 SELECT 
   person_key
-  , full_name
+  ,full_name
 FROM dim_person__cast
-
+UNION ALL
+SELECT
+  -1 as person_key
+  ,'Undefined' as full_name
