@@ -5,7 +5,7 @@ WITH
     FROM
       `vit-lam-data.wide_world_importers.sales__customers`
     ),
-  dim_customer__rename_col AS (
+  dim_customer__rename_column AS (
     SELECT
       customer_id as customer_key
       ,customer_name
@@ -15,7 +15,7 @@ WITH
     FROM 
       dim_customer__source
     ),
-  dim_customer__cast AS (
+  dim_customer__cast_type AS (
     SELECT
       CAST(customer_key AS INTEGER) as customer_key
       ,CAST(customer_name AS STRING) as customer_name
@@ -23,7 +23,7 @@ WITH
       ,CAST(buying_group_key as INTEGER) as buying_group_key
       ,CAST(is_on_credit_hold as BOOLEAN) as is_on_credit_hold
     FROM
-      dim_customer__rename_col
+      dim_customer__rename_column
     ),
   dim_customer__convert_boolean AS (
     SELECT
@@ -36,7 +36,19 @@ WITH
         WHEN is_on_credit_hold is false then 'Not On Credit Hold'
       END AS is_on_credit_hold
     FROM
-      dim_customer__cast
+      dim_customer__cast_type
+    ),
+  dim_customer__add_undefined_record AS (
+    SELECT
+      *
+    FROM dim_customer__convert_boolean
+    UNION ALL
+    SELECT
+      0 as customer_key
+      ,'Undefined' as customer_name
+      ,0 as customer_category_key
+      ,0 as buying_group_key
+      ,'Undefined' as is_on_credit_hold
   )
 
 SELECT
@@ -48,7 +60,7 @@ SELECT
   , COALESCE(dim_customer_category.customer_category_name,'Error') as customer_category_name
   , COALESCE(dim_buying_group.buying_group_name,'Error') as buying_group_name
 FROM
-  dim_customer__convert_boolean as dim_customer
+  dim_customer__add_undefined_record as dim_customer
 LEFT JOIN 
   {{ref('stg_dim_customer_category')}} as dim_customer_category
 ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
