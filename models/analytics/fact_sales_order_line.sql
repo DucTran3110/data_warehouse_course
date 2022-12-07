@@ -47,6 +47,13 @@ SELECT
   fact_line.sales_order_line_key
   ,fact_line.description
   ,fact_line.sales_order_key
+  ,COALESCE(fact_header.customer_key,-1) as customer_key
+  ,COALESCE(fact_header.picked_by_person_key,-1) as picked_by_person_key
+  ,COALESCE(fact_header.contact_person_key,-1) AS contact_person_key
+  ,COALESCE(fact_header.backorder_order_key,-1) AS backorder_order_key
+  ,fact_header.expected_delivery_date
+  ,COALESCE(fact_header.is_undersupply_backordered,'Error') AS is_undersupply_backordered
+  ,order_picking_completed_when
   ,fact_line.product_key
   ,fact_line.package_type_key
   ,fact_line.quantity
@@ -55,8 +62,6 @@ SELECT
   ,fact_line.picked_quantity
   ,fact_line.picking_completed_when
   ,fact_line.gross_amount
-  ,COALESCE(fact_header.customer_key,-1) as customer_key
-  ,COALESCE(fact_header.picked_by_person_key,-1) as picked_by_person_key
   ,fact_header.order_date
 FROM
   fact_sales_order_line__calculate_measure AS fact_line
