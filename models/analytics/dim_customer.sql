@@ -17,6 +17,8 @@ WITH
       ,payment_days
       ,delivery_run
       ,run_position
+      ,delivery_postal_code
+      ,postal_postal_code
       ,customer_category_id as customer_category_key
       ,buying_group_id as buying_group_key
       ,delivery_method_id as delivery_method_key
@@ -31,9 +33,18 @@ WITH
     SELECT
       CAST(customer_key AS INTEGER) as customer_key
       ,CAST(customer_name AS STRING) as customer_name
+      ,CAST(credit_limit as NUMERIC) as credit_limit
+      ,CAST(account_opened_date AS DATE) AS account_opened_date
+      ,CAST(standard_discount_percentage AS NUMERIC) AS standard_discount_percentage
+      ,CAST(is_statement_sent AS BOOLEAN) AS is_statement_sent
+      ,CAST(is_on_credit_hold as BOOLEAN) as is_on_credit_hold
+      ,CAST(payment_days AS INTEGER) AS payment_days
+      ,CAST(delivery_run AS STRING) AS delivery_run
+      ,CAST(run_position AS STRING) AS run_position
+      ,CAST(delivery_postal_code AS STRING) AS delivery_postal_code
+      ,CAST(postal_postal_code AS STRING) AS postal_postal_code
       ,CAST(customer_category_key as INTEGER) as customer_category_key
       ,CAST(buying_group_key as INTEGER) as buying_group_key
-      ,CAST(is_on_credit_hold as BOOLEAN) as is_on_credit_hold
     FROM
       dim_customer__rename_column
     ),
