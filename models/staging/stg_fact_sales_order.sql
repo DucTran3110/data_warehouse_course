@@ -36,7 +36,14 @@ WITH
     ),
   fact_sales_order__convert_boolean as (
     SELECT
-      *
+        sales_order_key
+      , customer_key
+      , picked_by_person_key
+      , contact_person_key
+      , backorder_order_key
+      , order_date
+      , expected_delivery_date
+      , order_picking_completed_when
       ,CASE 
       WHEN is_undersupply_backordered is true THEN 'Under Supply Back Ordered'
       WHEN is_undersupply_backordered is false THEN 'Not Under Supply Back Ordered'
@@ -46,7 +53,13 @@ WITH
   ),
   fact_sales_order__handle_null as (
     SELECT
-      *
+      sales_order_key
+      , customer_key
+      , contact_person_key
+      , order_date
+      , expected_delivery_date
+      , is_undersupply_backordered
+      , order_picking_completed_when
       ,COALESCE(picked_by_person_key,0) as picked_by_person_key
       ,COALESCE(backorder_order_key,0) as backorder_order_key
     FROM
@@ -64,5 +77,4 @@ SELECT
   , is_undersupply_backordered
   , order_picking_completed_when
 FROM
-  fact_sales_order__cast_type
-  
+  fact_sales_order__handle_null
