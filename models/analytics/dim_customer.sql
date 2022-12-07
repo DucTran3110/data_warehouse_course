@@ -9,9 +9,21 @@ WITH
     SELECT
       customer_id as customer_key
       ,customer_name
+      ,credit_limit
+      ,account_opened_date
+      ,standard_discount_percentage
+      ,is_statement_sent
+      ,is_on_credit_hold
+      ,payment_days
+      ,delivery_run
+      ,run_position
       ,customer_category_id as customer_category_key
       ,buying_group_id as buying_group_key
-      ,is_on_credit_hold
+      ,delivery_method_id as delivery_method_key
+      ,delivery_city_id as delivery_city_key
+      ,postal_city_id as postal_city_key
+      ,primary_contact_person_id as primary_contact_person_key
+      ,alternate_contact_person_id as alternate_contact_person_key
     FROM 
       dim_customer__source
     ),
