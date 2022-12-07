@@ -45,19 +45,40 @@ WITH
       ,CAST(postal_postal_code AS STRING) AS postal_postal_code
       ,CAST(customer_category_key as INTEGER) as customer_category_key
       ,CAST(buying_group_key as INTEGER) as buying_group_key
+      ,CAST(delivery_method_key as INTEGER) as delivery_method_key
+      ,CAST(delivery_city_key as INTEGER) as delivery_city_key
+      ,CAST(postal_city_key as INTEGER) as postal_city_key
+      ,CAST(primary_contact_person_key as INTEGER) as primary_contact_person_key
+      ,CAST(alternate_contact_person_key as INTEGER) as alternate_contact_person_key
     FROM
       dim_customer__rename_column
     ),
   dim_customer__convert_boolean AS (
     SELECT
-      customer_key
-      ,customer_name
-      ,customer_category_key
-      ,buying_group_key
+      customer_name
+      ,credit_limit
+      ,account_opened_date
+      ,standard_discount_percentage
+      ,CASE
+        WHEN is_statement_sent is true then 'Statement Sent'
+        WHEN is_statement_sent is false then 'Not Statement Sent'
+      END AS is_statement_sent
       ,CASE
         WHEN is_on_credit_hold is true then 'On Credit Hold'
         WHEN is_on_credit_hold is false then 'Not On Credit Hold'
       END AS is_on_credit_hold
+      ,payment_days
+      ,delivery_run
+      ,run_position
+      ,delivery_postal_code
+      ,postal_postal_code
+      ,customer_category_key
+      ,buying_group_key
+      ,delivery_method_key
+      ,delivery_city_key
+      ,postal_city_key
+      ,primary_contact_person_key
+      ,alternate_contact_person_key
     FROM
       dim_customer__cast_type
     ),
