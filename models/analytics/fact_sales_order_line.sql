@@ -5,7 +5,7 @@ WITH
     FROM 
       `vit-lam-data.wide_world_importers.sales__order_lines`
     ),
-  fact_sales_order_lines__rename_col as (
+  fact_sales_order_lines__rename_column as (
     SELECT
       order_line_id as sales_order_line_key,
       quantity,
@@ -15,7 +15,7 @@ WITH
     FROM
       fact_sales_order_lines__source
     ),
-  fact_sales_order_lines__cast as (
+  fact_sales_order_lines__cast_type as (
     SELECT 
       CAST(sales_order_line_key AS INTEGER) as sales_order_line_key,
       CAST(quantity AS INTEGER) as quantity,
@@ -23,14 +23,14 @@ WITH
       CAST(sales_order_key AS INTEGER) as sales_order_key,
       CAST(product_key AS INTEGER) as product_key
     FROM
-      fact_sales_order_lines__rename_col
+      fact_sales_order_lines__rename_column
     ),
-  fact_sales_order_line__calculate_fact as (
+  fact_sales_order_line__calculate_measure as (
     SELECT
       *,
       quantity*unit_price as gross_amount
     FROM
-      fact_sales_order_lines__cast
+      fact_sales_order_lines__cast_type
     )
 
 SELECT 
@@ -44,7 +44,7 @@ SELECT
   ,COALESCE(fact_header.picked_by_person_key,-1) as picked_by_person_key
   ,fact_header.order_date
 FROM
-  fact_sales_order_line__calculate_fact AS fact_line
+  fact_sales_order_line__calculate_measure AS fact_line
 LEFT JOIN 
   {{ ref('stg_fact_sales_order')}} AS fact_header
 ON
