@@ -26,6 +26,7 @@ WITH
       ,postal_city_id as postal_city_key
       ,primary_contact_person_id as primary_contact_person_key
       ,alternate_contact_person_id as alternate_contact_person_key
+      ,bill_to_customer_id as bill_to_customer_key
     FROM 
       dim_customer__source
     ),
@@ -50,6 +51,7 @@ WITH
       ,CAST(postal_city_key as INTEGER) as postal_city_key
       ,CAST(primary_contact_person_key as INTEGER) as primary_contact_person_key
       ,CAST(alternate_contact_person_key as INTEGER) as alternate_contact_person_key
+      ,CAST(bill_to_customer_key as INTEGER) as bill_to_customer_key
     FROM
       dim_customer__rename_column
     ),
@@ -80,6 +82,7 @@ WITH
       ,postal_city_key
       ,primary_contact_person_key
       ,alternate_contact_person_key
+      ,bill_to_customer_key
     FROM
       dim_customer__cast_type
     ),
@@ -108,6 +111,7 @@ WITH
       ,0 as postal_city_key
       ,0 as primary_contact_person_key
       ,0 as alternate_contact_person_key
+      ,0 as bill_to_customer_key
   )
 
 SELECT
@@ -141,6 +145,7 @@ SELECT
       ,COALESCE(dim_postal_city.sales_territory,'Error') as postal_city_sales_territory
       ,dim_customer.primary_contact_person_key
       ,dim_customer.alternate_contact_person_key
+      ,bill_to_customer_key
 FROM
   dim_customer__add_undefined_record as dim_customer
 LEFT JOIN 
