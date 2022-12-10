@@ -55,7 +55,8 @@ WITH
     ),
   dim_customer__convert_boolean AS (
     SELECT
-      customer_name
+      customer_key
+      ,customer_name
       ,credit_limit
       ,account_opened_date
       ,standard_discount_percentage
@@ -90,19 +91,56 @@ WITH
     SELECT
       0 as customer_key
       ,'Undefined' as customer_name
+      ,0 as credit_limit
+      ,null as account_opened_date
+      ,0 as standard_discount_percentage
+      ,'Undefined' as is_statement_sent
+      ,'Undefined' as is_on_credit_hold
+      ,0 as payment_days
+      ,'Undefined' as delivery_run
+      ,'Undefined' as run_position
+      ,'Undefined' as delivery_postal_code
+      ,'Undefined' as postal_postal_code
       ,0 as customer_category_key
       ,0 as buying_group_key
-      ,'Undefined' as is_on_credit_hold
+      ,0 as elivery_method_key
+      ,0 as delivery_city_key
+      ,0 as postal_city_key
+      ,0 as primary_contact_person_key
+      ,0 as alternate_contact_person_key
   )
 
 SELECT
-  dim_customer.customer_key
-  , dim_customer.customer_name
-  , dim_customer.customer_category_key
-  , dim_customer.is_on_credit_hold
-  , COALESCE(dim_customer.buying_group_key,0) as buying_group_key
-  , COALESCE(dim_customer_category.customer_category_name,'Error') as customer_category_name
-  , COALESCE(dim_buying_group.buying_group_name,'Error') as buying_group_name
+      dim_customer.customer_key
+      ,dim_customer.customer_name
+      ,dim_customer.credit_limit
+      ,dim_customer.account_opened_date
+      ,dim_customer.standard_discount_percentage
+      ,dim_customer.is_statement_sent
+      ,dim_customer.is_on_credit_hold
+      ,dim_customer.payment_days
+      ,dim_customer.delivery_run
+      ,dim_customer.run_position
+      ,dim_customer.delivery_postal_code
+      ,dim_customer.postal_postal_code
+      ,dim_customer.customer_category_key
+      ,COALESCE(dim_customer_category.customer_category_name,'Error') as customer_category_name
+      ,dim_customer.buying_group_key
+      ,COALESCE(dim_buying_group.buying_group_name,'Error') as buying_group_name
+      ,dim_customer.delivery_method_key
+      ,COALESCE(dim_delivery_method.delivery_method_name,'Error') as delivery_method_name
+      ,dim_customer.delivery_city_key
+      ,COALESCE(dim_delivery_city.city_name,'Error') as delivery_city_name
+      ,COALESCE(dim_delivery_city.state_province_key,0) as delivery_city_state_province_key
+      ,COALESCE(dim_delivery_city.state_province_code,'Error') as delivery_city_state_province_code
+      ,COALESCE(dim_delivery_city.sales_territory,'Error') as delivery_city_sales_territory
+      ,dim_customer.postal_city_key
+      ,COALESCE(dim_postal_city.city_name,'Error') as postal_city_name
+      ,COALESCE(dim_postal_city.state_province_key,0) as postal_city_state_province_key
+      ,COALESCE(dim_postal_city.state_province_code,'Error') as postal_city_state_province_code
+      ,COALESCE(dim_postal_city.sales_territory,'Error') as postal_city_sales_territory
+      ,dim_customer.primary_contact_person_key
+      ,dim_customer.alternate_contact_person_key
 FROM
   dim_customer__add_undefined_record as dim_customer
 LEFT JOIN 
@@ -111,3 +149,12 @@ ON dim_customer.customer_category_key = dim_customer_category.customer_category_
 LEFT JOIN
   {{ref('stg_dim_buying_group')}} as dim_buying_group
 ON dim_customer.buying_group_key = dim_buying_group.buying_group_key
+LEFT JOIN
+  {{ref('stg_dim_delivery_method')}} as dim_delivery_method
+ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
+LEFT JOIN
+  {{ref('stg_dim_delivery_city')}} as dim_delivery_city
+ON dim_customer.delivery_city_key = dim_delivery_city.city_key
+LEFT JOIN
+  {{ref('stg_dim_delivery_city')}} as dim_postal_city
+ON dim_customer.postal_city_key = dim_postal_city.city_key
