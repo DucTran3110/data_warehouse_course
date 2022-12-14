@@ -15,9 +15,11 @@ WITH dim_is_undersupply_backordered AS (
 
 SELECT 
   *
-  ,CONCAT(
+  ,FARM_FINGERPRINT(
+    CONCAT(
     is_undersupply_backordered
     ,package_type_key
+    )
     )
     AS sales_order_line_indicator_key
 FROM 
