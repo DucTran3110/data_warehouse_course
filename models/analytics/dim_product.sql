@@ -144,6 +144,30 @@ SELECT
   ,COALESCE(dim_color.color_name,'Error') as color_name
   ,dim_product.supplier_key
   ,COALESCE(dim_supplier.supplier_name,'Error') as supplier_name
+  ,COALESCE(dim_supplier.supplier_reference,'Error') as supplier_reference
+  ,COALESCE(dim_supplier.bank_account_name,'Error') as bank_account_name
+  ,COALESCE(dim_supplier.bank_account_branch,'Error') as bank_account_branch
+  ,COALESCE(dim_supplier.bank_account_code,'Error') as bank_account_code
+  ,COALESCE(dim_supplier.bank_account_number,'Error') as bank_account_number
+  ,COALESCE(dim_supplier.bank_international_code,'Error') as bank_international_code
+  ,COALESCE(dim_supplier.payment_days,-1) as payment_days
+  ,COALESCE(dim_supplier.delivery_postal_code,'Error') as delivery_postal_code
+  ,COALESCE(dim_supplier.postal_postal_code,'Error') as postal_postal_code
+  ,COALESCE(dim_supplier.supplier_category_key,-1) as supplier_category_key
+  ,COALESCE(dim_supplier.supplier_category_name,'Error') as supplier_category_name
+  ,COALESCE(dim_supplier.primary_contact_person_key,-1) as primary_contact_person_key
+  ,COALESCE(dim_supplier.alternate_contact_person_key,-1) as alternate_contact_person_key
+  ,COALESCE(dim_supplier.delivery_method_key,-1) as delivery_method_key
+  ,COALESCE(dim_supplier.delivery_city_key,-1) as delivery_city_key
+  ,COALESCE(dim_supplier.delivery_city_name,'Error') as delivery_city_name
+  ,COALESCE(dim_supplier.delivery_city_state_province_key,-1) as delivery_city_state_province_key
+  ,COALESCE(dim_supplier.delivery_city_state_province_code,'Error') as delivery_city_state_province_code
+  ,COALESCE(dim_supplier.delivery_city_sales_territory,'Error') as delivery_city_sales_territory
+  ,COALESCE(dim_supplier.postal_city_key,-1) as postal_city_key
+  ,COALESCE(dim_supplier.postal_city_name,'Error') as postal_city_name
+  ,COALESCE(dim_supplier.postal_city_state_province_key,-1) as postal_city_state_province_key
+  ,COALESCE(dim_supplier.postal_city_state_province_code,'Error') as postal_city_state_province_code
+  ,COALESCE(dim_supplier.postal_city_sales_territory,'Error') as postal_city_sales_territory
 FROM dim_product__add_undefined_record as dim_product
 LEFT JOIN {{ref('dim_supplier')}} as dim_supplier
 ON dim_supplier.supplier_key = dim_product.supplier_key
