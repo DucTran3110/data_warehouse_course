@@ -64,8 +64,8 @@ SELECT
   ,fact_line.gross_amount
   ,fact_header.order_date
   ,CONCAT(
-    is_undersupply_backordered
-    ,package_type_key
+    fact_header.is_undersupply_backordered
+    ,fact_line.package_type_key
     ) AS sales_order_line_indicator_key
 FROM
   fact_sales_order_line__calculate_measure AS fact_line
