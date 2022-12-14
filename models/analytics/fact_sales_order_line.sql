@@ -63,9 +63,11 @@ SELECT
   ,fact_line.picking_completed_when
   ,fact_line.gross_amount
   ,fact_header.order_date
-  ,CONCAT(
+  ,FARM_FINGERPRINT(
+    CONCAT(
     fact_header.is_undersupply_backordered
     ,fact_line.package_type_key
+    )
     ) AS sales_order_line_indicator_key
 FROM
   fact_sales_order_line__calculate_measure AS fact_line
