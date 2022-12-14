@@ -52,10 +52,8 @@ SELECT
   ,COALESCE(fact_header.contact_person_key,-1) AS contact_person_key
   ,COALESCE(fact_header.backorder_order_key,-1) AS backorder_order_key
   ,fact_header.expected_delivery_date
-  ,COALESCE(fact_header.is_undersupply_backordered,'Error') AS is_undersupply_backordered
   ,order_picking_completed_when
   ,fact_line.product_key
-  ,fact_line.package_type_key
   ,fact_line.quantity
   ,fact_line.unit_price
   ,fact_line.tax_rate
