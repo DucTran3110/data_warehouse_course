@@ -158,6 +158,7 @@ SELECT
   ,COALESCE(dim_supplier.primary_contact_person_key,-1) as primary_contact_person_key
   ,COALESCE(dim_supplier.alternate_contact_person_key,-1) as alternate_contact_person_key
   ,COALESCE(dim_supplier.delivery_method_key,-1) as delivery_method_key
+  ,COALESCE(dim_delivery_method.delivery_method_name,'Error') as delivery_method_name
   ,COALESCE(dim_supplier.delivery_city_key,-1) as delivery_city_key
   ,COALESCE(dim_supplier.delivery_city_name,'Error') as delivery_city_name
   ,COALESCE(dim_supplier.delivery_city_state_province_key,-1) as delivery_city_state_province_key
@@ -177,3 +178,5 @@ LEFT JOIN {{ref('dim_package_type')}} as dim_unit_package
 ON dim_product.unit_package_key = dim_unit_package.package_type_key
 LEFT JOIN {{ref('dim_package_type')}} as dim_outer_package
 ON dim_product.outer_package_key = dim_outer_package.package_type_key
+LEFT JOIN {{ref('stg_dim_delivery_method')}} as dim_delivery_method
+ON dim_supplier.delivery_method_key = dim_delivery_method.delivery_method_key
