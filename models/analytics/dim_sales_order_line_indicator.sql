@@ -14,7 +14,9 @@ WITH dim_is_undersupply_backordered AS (
 )
 
 SELECT 
-  *
+  is_undersupply_backordered
+  ,package_type_key
+  ,package_type_name
   ,FARM_FINGERPRINT(
     CONCAT(
     is_undersupply_backordered
