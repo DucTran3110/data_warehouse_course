@@ -10,6 +10,24 @@ models:
       - name: supplier_name
         tests: 
           - not_null
+      - name: supplier_reference
+        tests: 
+          - not_null
+      - name: bank_account_name
+        tests: 
+          - not_null
+      - name: bank_account_branch
+        tests: 
+          - not_null
+      - name: bank_account_code
+        tests: 
+          - not_null
+      - name: bank_account_number
+        tests: 
+          - not_null
+      - name: bank_international_code
+        tests: 
+          - not_null
       - name: payment_days
         tests: 
           - not_null
@@ -29,6 +47,12 @@ models:
         tests: 
           - not_null
       - name: alternate_contact_person_key
+        tests: 
+          - not_null
+      - name: delivery_method_key
+        tests: 
+          - not_null
+      - name: delivery_method_name
         tests: 
           - not_null
       - name: delivery_city_key

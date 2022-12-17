@@ -19,6 +19,9 @@ models:
       - name: is_permitted_to_logon
         tests: 
           - not_null
+      - name: logon_name
+        tests: 
+          - not_null
       - name: is_external_logon_provider
         tests: 
           - not_null

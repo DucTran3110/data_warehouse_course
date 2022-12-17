@@ -45,12 +45,18 @@ models:
       - name: customer_category_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_dim_customer_category')
+              field: customer_category_key
       - name: customer_category_name
         tests: 
           - not_null
       - name: buying_group_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_dim_buying_group')
+              field: buying_group_key
       - name: buying_group_name
         tests: 
           - not_null
@@ -63,12 +69,18 @@ models:
       - name: delivery_city_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_delivery_city')
+              field: city_key
       - name: delivery_city_name
         tests: 
           - not_null
       - name: delivery_city_state_province_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_delivery_city')
+              field: state_province_key
       - name: delivery_city_state_province_code
         tests: 
           - not_null
@@ -78,12 +90,18 @@ models:
       - name: postal_city_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_delivery_city')
+              field: city_key
       - name: postal_city_name
         tests: 
           - not_null
       - name: postal_city_state_province_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_delivery_city')
+              field: state_province_key
       - name: postal_city_state_province_code
         tests: 
           - not_null

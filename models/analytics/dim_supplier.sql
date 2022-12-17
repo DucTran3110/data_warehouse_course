@@ -90,7 +90,7 @@ SELECT
       ,COALESCE(dim_supplier_category.supplier_category_name,'Error') as supplier_category_name
       ,dim_supplier.primary_contact_person_key
       ,dim_supplier.alternate_contact_person_key
-      ,dim_supplier.delivery_method_key
+      ,COALESCE(dim_supplier.delivery_method_key,0) as delivery_method_key
       ,COALESCE(dim_delivery_method.delivery_method_name,'Error') as delivery_method_name
       ,dim_supplier.delivery_city_key
       ,COALESCE(dim_delivery_city.city_name,'Error') as delivery_city_name
