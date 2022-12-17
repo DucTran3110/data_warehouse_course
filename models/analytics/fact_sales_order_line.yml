@@ -37,6 +37,8 @@ models:
       - name: gross_amount
         tests: 
           - not_null
+          - dbt_utils.expression_is_true:
+              expression: "=quantity*unit_price"
       - name: order_date
         tests: 
           - not_null
