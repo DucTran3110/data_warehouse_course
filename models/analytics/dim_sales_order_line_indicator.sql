@@ -1,9 +1,8 @@
 WITH dim_is_undersupply_backordered AS (
-  SELECT
-    'Under' as is_undersupply_backordered
-  UNION ALL
-  SELECT
-    'Not Under'
+  SELECT DISTINCT
+    is_undersupply_backordered
+  FROM
+    {{ref('stg_fact_sales_order')}}
 ),
   dim_is_undersupply_backordered__join as (
   SELECT
