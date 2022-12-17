@@ -140,7 +140,7 @@ SELECT
   ,COALESCE(dim_unit_package.package_type_name,'Error') as unit_package_type_name
   ,dim_product.outer_package_key
   ,COALESCE(dim_outer_package.package_type_name,'Error') as outer_package_type_name
-  ,dim_product.color_key
+  ,COALESCE(dim_product.color_key,0) as color_key
   ,COALESCE(dim_color.color_name,'Error') as color_name
   ,dim_product.supplier_key
   ,COALESCE(dim_supplier.supplier_name,'Error') as supplier_name
