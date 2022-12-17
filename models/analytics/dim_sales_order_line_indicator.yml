@@ -15,3 +15,4 @@ models:
       - name: sales_order_line_indicator_key
         tests: 
           - not_null
+          - unique
