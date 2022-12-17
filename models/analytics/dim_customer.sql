@@ -117,19 +117,19 @@ WITH
 SELECT
       dim_customer.customer_key
       ,dim_customer.customer_name
-      ,dim_customer.credit_limit
+      ,COALESCE(dim_customer.credit_limit,0) as credit_limit
       ,dim_customer.account_opened_date
       ,dim_customer.standard_discount_percentage
       ,dim_customer.is_statement_sent
       ,dim_customer.is_on_credit_hold
       ,dim_customer.payment_days
-      ,dim_customer.delivery_run
-      ,dim_customer.run_position
+      ,COALESCE(dim_customer.delivery_run,'Undefined') as delivery_run
+      ,COALESCE(dim_customer.run_position,'Undefined') as run_position
       ,dim_customer.delivery_postal_code
       ,dim_customer.postal_postal_code
       ,dim_customer.customer_category_key
       ,COALESCE(dim_customer_category.customer_category_name,'Error') as customer_category_name
-      ,dim_customer.buying_group_key
+      ,COALESCE(dim_customer.buying_group_key,0) as buying_group_key
       ,COALESCE(dim_buying_group.buying_group_name,'Error') as buying_group_name
       ,dim_customer.delivery_method_key
       ,COALESCE(dim_delivery_method.delivery_method_name,'Error') as delivery_method_name
@@ -143,8 +143,8 @@ SELECT
       ,COALESCE(dim_postal_city.state_province_key,0) as postal_city_state_province_key
       ,COALESCE(dim_postal_city.state_province_code,'Error') as postal_city_state_province_code
       ,COALESCE(dim_postal_city.sales_territory,'Error') as postal_city_sales_territory
+      ,COALESCE(dim_customer.alternate_contact_person_key,0) as alternate_contact_person_key
       ,dim_customer.primary_contact_person_key
-      ,dim_customer.alternate_contact_person_key
       ,bill_to_customer_key
 FROM
   dim_customer__add_undefined_record as dim_customer
