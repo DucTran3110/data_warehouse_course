@@ -29,6 +29,7 @@ WITH
       ,CAST(backorder_order_key as INTEGER) as backorder_order_key
       ,CAST(order_date as Date) as order_date
       ,CAST(expected_delivery_date as Date) as expected_delivery_date
+      ,CAST(customer_purchase_order_number as Numeric) as customer_purchase_order_number
       ,CAST(is_undersupply_backordered as BOOLEAN) as is_undersupply_backordered
       ,CAST(order_picking_completed_when as Date) as order_picking_completed_when
     FROM
@@ -43,6 +44,7 @@ WITH
       , backorder_order_key
       , order_date
       , expected_delivery_date
+      , customer_purchase_order_number
       , order_picking_completed_when
       ,CASE 
       WHEN is_undersupply_backordered is true THEN 'Under Supply Back Ordered'
@@ -62,6 +64,7 @@ WITH
       , order_picking_completed_when
       ,COALESCE(picked_by_person_key,0) as picked_by_person_key
       ,COALESCE(backorder_order_key,0) as backorder_order_key
+      ,COALESCE(customer_purchase_order_number,0) as customer_purchase_order_number
     FROM
       fact_sales_order__convert_boolean
   )
@@ -74,6 +77,7 @@ SELECT
   , backorder_order_key
   , order_date
   , expected_delivery_date
+  , customer_purchase_order_number
   , is_undersupply_backordered
   , order_picking_completed_when
 FROM
