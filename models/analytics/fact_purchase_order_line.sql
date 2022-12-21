@@ -81,14 +81,20 @@ SELECT
   ,fact_purchase_head.order_date
   ,fact_purchase_head.expected_delivery_date
   ,COALESCE(fact_purchase_head.supplier_reference, 'Error') as supplier_reference
-  ,COALESCE(fact_purchase_head.is_order_finalized, 'Error') as is_order_finalized
   ,fact_purchase_line.product_key
   ,fact_purchase_line.package_type_key
   ,fact_purchase_line.ordered_outers
   ,fact_purchase_line.received_outers
   ,fact_purchase_line.expected_unit_price_per_outer
-  ,fact_purchase_line.is_order_line_finalized
   ,fact_purchase_line.last_receipt_date
+  ,FARM_FINGERPRINT(
+    CONCAT(
+    fact_purchase_line.is_order_line_finalized
+    ,COALESCE(fact_purchase_head.is_order_finalized, 'Error')
+    ,package_type_key
+    )
+    )
+    AS purchase_order_line_indicator_key
 FROM
   fact_purchase_order_line__handle_null AS fact_purchase_line
 LEFT JOIN
