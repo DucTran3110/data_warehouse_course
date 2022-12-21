@@ -41,8 +41,8 @@ WITH
       ,expected_delivery_date
       ,supplier_reference
       ,CASE 
-      WHEN is_order_finalized is true THEN 'Order is Finalized'
-      WHEN is_order_finalized is false THEN 'Order is not Finalized'
+      WHEN is_order_finalized is true THEN 'Order is finalized'
+      WHEN is_order_finalized is false THEN 'Order is not finalized'
       END AS is_order_finalized
     FROM 
       fact_purchase_order__cast_type
