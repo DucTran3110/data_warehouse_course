@@ -16,18 +16,30 @@ models:
       - name: purchase_order_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('stg_dim_purchase_order')
+              field: purchase_order_key
       - name: supplier_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_key
       - name: delivery_method_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('dim_delivery_method')
+              field: delivery_method_key
       - name: delivery_method_name
         tests: 
           - not_null
       - name: contact_person_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('dim_contact_person')
+              field: contact_person_key
       - name: order_date
         tests: 
           - not_null
@@ -37,15 +49,12 @@ models:
       - name: supplier_reference
         tests: 
           - not_null
-      - name: is_order_finalized
-        tests: 
-          - not_null
       - name: product_key
         tests: 
           - not_null
-      - name: package_type_key
-        tests: 
-          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_key
       - name: ordered_outers
         tests: 
           - not_null
@@ -55,6 +64,9 @@ models:
       - name: expected_unit_price_per_outer
         tests: 
           - not_null
-      - name: is_order_line_finalized
+      - name: purchase_order_line_indicator_key
         tests: 
           - not_null
+          - relationships:
+              to: ref('dim_purchase_order_line_indicator')
+              field: purchase_order_line_indicator_key
