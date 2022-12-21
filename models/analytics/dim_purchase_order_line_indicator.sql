@@ -1,17 +1,23 @@
 WITH dim_is_order_finalized AS (
   SELECT 
+    'Order is finalized' as is_order_finalized
+  UNION ALL
+  SELECT
+    'Order is not finalized' as is_order_finalized
+),
+  dim_is_order_line_finalized AS (
+  SELECT 
     'Order line is finalized' as is_order_line_finalized
-    ,'Order is finalized' as is_order_finalized
   UNION ALL
   SELECT
     'Order line is not finalized' as is_order_line_finalized
-    ,'Order is not finalized' as is_order_finalized
 ),
   dim_is_order_finalized__join as (
   SELECT
     *
   FROM 
     dim_is_order_finalized
+  CROSS JOIN dim_is_order_line_finalized
   CROSS JOIN `ductran.wide_world_importers_dwh.dim_package_type`
 )
 
