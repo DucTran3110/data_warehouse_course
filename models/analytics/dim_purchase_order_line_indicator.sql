@@ -1,0 +1,32 @@
+WITH dim_is_order_finalized AS (
+  SELECT 
+    'Order line is finalized' as is_order_line_finalized
+    ,'Order is finalized' as is_order_finalized
+  UNION ALL
+  SELECT
+    'Order line is not finalized' as is_order_line_finalized
+    ,'Order is not finalized' as is_order_finalized
+),
+  dim_is_order_finalized__join as (
+  SELECT
+    *
+  FROM 
+    dim_is_order_finalized
+  CROSS JOIN `ductran.wide_world_importers_dwh.dim_package_type`
+)
+
+SELECT 
+  is_order_line_finalized
+  ,is_order_finalized
+  ,package_type_key
+  ,package_type_name
+  ,FARM_FINGERPRINT(
+    CONCAT(
+    is_order_line_finalized
+    ,is_order_finalized
+    ,package_type_key
+    )
+    )
+    AS purchase_order_line_indicator_key
+FROM 
+  dim_is_order_finalized__join
