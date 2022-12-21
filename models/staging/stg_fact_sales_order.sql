@@ -9,6 +9,7 @@ WITH
     SELECT
       order_id as sales_order_key
       , customer_id as customer_key
+      , salesperson_person_id as salesperson_person_key
       , picked_by_person_id as picked_by_person_key
       , contact_person_id as contact_person_key
       , backorder_order_id as backorder_order_key
@@ -24,6 +25,7 @@ WITH
     SELECT
       CAST(sales_order_key as INTEGER) as sales_order_key
       ,CAST(customer_key as INTEGER) as customer_key
+      ,CAST(salesperson_person_key as INTEGER) as salesperson_person_key
       ,CAST(picked_by_person_key as INTEGER) as picked_by_person_key
       ,CAST(contact_person_key as INTEGER) as contact_person_key
       ,CAST(backorder_order_key as INTEGER) as backorder_order_key
@@ -39,6 +41,7 @@ WITH
     SELECT
         sales_order_key
       , customer_key
+      , salesperson_person_key
       , picked_by_person_key
       , contact_person_key
       , backorder_order_key
@@ -57,6 +60,7 @@ WITH
     SELECT
       sales_order_key
       , customer_key
+      , salesperson_person_key
       , contact_person_key
       , order_date
       , expected_delivery_date
@@ -72,6 +76,7 @@ WITH
 SELECT
   sales_order_key
   , customer_key
+  , salesperson_person_key
   , picked_by_person_key
   , contact_person_key
   , backorder_order_key

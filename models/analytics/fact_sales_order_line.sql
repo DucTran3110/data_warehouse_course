@@ -48,6 +48,7 @@ SELECT
   ,fact_line.description
   ,fact_line.sales_order_key
   ,COALESCE(fact_header.customer_key,-1) as customer_key
+  ,COALESCE(fact_header.salesperson_person_key,-1) as salesperson_person_key
   ,COALESCE(fact_header.picked_by_person_key,-1) as picked_by_person_key
   ,COALESCE(fact_header.contact_person_key,-1) AS contact_person_key
   ,COALESCE(fact_header.backorder_order_key,-1) AS backorder_order_key
