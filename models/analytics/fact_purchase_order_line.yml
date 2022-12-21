@@ -64,6 +64,9 @@ models:
       - name: expected_unit_price_per_outer
         tests: 
           - not_null
+          - custom_test_equal_sum:
+              compare_model: "`vit-lam-data.wide_world_importers.purchasing__purchase_order_lines`"
+              compare_column: expected_unit_price_per_outer
       - name: purchase_order_line_indicator_key
         tests: 
           - not_null
