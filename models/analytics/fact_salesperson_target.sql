@@ -31,9 +31,25 @@ WITH
       ,(gross_amount/Ifnull(target_revenue,0)) as achievement
     FROM
       fact_salesperson_target__join
-  )
+  ),
+    fact_salesperson_target__is_achieved as (
+    SELECT
+      year_month
+      ,salesperson_person_key
+      ,target_revenue
+      ,gross_amount
+      ,achievement
+      ,Case
+        WHEN achievement between 0 and 0.8 then 'Not Achieved'
+        WHEN achievement > 0.8 then 'Achieved'
+        WHEN achievement < 0 then 'Error'
+        Else 'Undefined'
+        END AS is_achieved
+    FROM
+      fact_salesperson_target__calculation
+    )
 
 SELECT 
   *
 FROM
-  fact_salesperson_target__calculation
+  fact_salesperson_target__is_achieved
