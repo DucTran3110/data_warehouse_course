@@ -35,6 +35,7 @@ SELECT
   ,fact_epos.unit_sales
   ,fact_epos.week_num
   ,COALESCE(dim_date_ea.month_num,-1) as month_num
+  ,'vn.lazada' as retailer
 FROM
   fact_bbd_order_line_epos__handle_null as fact_epos
 LEFT JOIN

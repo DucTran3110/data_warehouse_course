@@ -34,9 +34,16 @@ WITH
   )
 
 SELECT 
-  product_key
-  ,unit_sales
-  ,week_num
-  ,month_num
+  fact_bbd_ea.product_key
+  ,fact_bbd_ea.unit_sales
+  ,fact_bbd_ea.week_num
+  ,fact_bbd_ea.month_num
+  ,COALESCE(dim_bbd_seller.retailer,'Error') as retailer
 FROM
-  fact_bbd_order_line_ea__handle_null
+  fact_bbd_order_line_ea__handle_null as fact_bbd_ea
+LEFT JOIN
+  {{ref('stg_dim_bbd_seller_ea')}} as dim_bbd_seller
+ON 
+  fact_bbd_ea.product_key = dim_bbd_seller.product_key
+WHERE 
+  retailer = 'vn.lazada'
