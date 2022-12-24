@@ -8,7 +8,7 @@ WITH
   fact_bbd_order_line_epos__rename_column as (
     SELECT
       lazada_sku as product_key
-      ,item_sold as unit_sales
+      ,item_sold as unit_sales_epos
       ,week_number as week_num
     FROM
       fact_bbd_order_line_epos__source
@@ -16,7 +16,7 @@ WITH
   fact_bbd_order_line_epos__cast_type as (
     SELECT 
       CAST(product_key AS STRING) as product_key
-      ,CAST(unit_sales as NUMERIC) as unit_sales
+      ,CAST(unit_sales_epos as NUMERIC) as unit_sales_epos
       ,CAST(week_num AS INTEGER) as week_num
     FROM
       fact_bbd_order_line_epos__rename_column
@@ -24,7 +24,7 @@ WITH
   fact_bbd_order_line_epos__handle_null as (
     SELECT
       COALESCE(product_key, 'Undefined') AS product_key
-      ,COALESCE(unit_sales, 0) AS unit_sales
+      ,COALESCE(unit_sales_epos, 0) AS unit_sales_epos
       ,COALESCE(week_num, 0) AS week_num
     FROM
       fact_bbd_order_line_epos__cast_type
@@ -32,10 +32,10 @@ WITH
 
 SELECT 
   fact_epos.product_key
-  ,fact_epos.unit_sales
+  ,fact_epos.unit_sales_epos
   ,fact_epos.week_num
   ,COALESCE(dim_date_ea.month_num,-1) as month_num
-  ,'vn.lazada' as retailer
+  ,'vn.lazada' as retailer_epos
 FROM
   fact_bbd_order_line_epos__handle_null as fact_epos
 LEFT JOIN
