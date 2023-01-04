@@ -33,8 +33,8 @@ WITH
     SELECT
       0 as category_key
       ,'Undefined' as category_name
-      ,-1 as parent_category_key
-      ,-1 as category_level
+      ,-2 as parent_category_key
+      ,-2 as category_level
   )
 
 SELECT

@@ -169,6 +169,10 @@ SELECT
   ,COALESCE(dim_supplier.postal_city_state_province_key,-1) as postal_city_state_province_key
   ,COALESCE(dim_supplier.postal_city_state_province_code,'Error') as postal_city_state_province_code
   ,COALESCE(dim_supplier.postal_city_sales_territory,'Error') as postal_city_sales_territory
+  ,COALESCE(dim_external_stock_item.category_key,-1) as category_key
+  ,COALESCE(dim_external_stock_item.category_name,'Error') as category_name
+  ,COALESCE(dim_external_stock_item.parent_category_key,-1) as parent_category_key
+  ,COALESCE(dim_external_stock_item.category_level,-1) as category_level
 FROM dim_product__add_undefined_record as dim_product
 LEFT JOIN {{ref('dim_supplier')}} as dim_supplier
 ON dim_supplier.supplier_key = dim_product.supplier_key
@@ -180,3 +184,5 @@ LEFT JOIN {{ref('dim_package_type')}} as dim_outer_package
 ON dim_product.outer_package_key = dim_outer_package.package_type_key
 LEFT JOIN {{ref('stg_dim_delivery_method')}} as dim_delivery_method
 ON dim_supplier.delivery_method_key = dim_delivery_method.delivery_method_key
+LEFT JOIN {{ref('dim_external_stock_item')}} as dim_external_stock_item
+ON dim_product.product_key = dim_external_stock_item.stock_item_key

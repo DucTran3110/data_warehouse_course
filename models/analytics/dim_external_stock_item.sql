@@ -33,8 +33,8 @@ SELECT
   dim_external_stock_item.stock_item_key
   ,dim_external_stock_item.category_key
   ,COALESCE(dim_external_category.category_name, 'Error') as category_name
-  ,COALESCE(dim_external_category.parent_category_key, -2) as parent_category_key
-  ,COALESCE(dim_external_category.category_level,-2) as category_level
+  ,COALESCE(dim_external_category.parent_category_key, -1) as parent_category_key
+  ,COALESCE(dim_external_category.category_level,-1) as category_level
 FROM
   dim_external_stock_item__add_undefine_record as dim_external_stock_item
 LEFT JOIN
