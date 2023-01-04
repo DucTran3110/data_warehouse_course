@@ -31,7 +31,7 @@ WITH
       dim_external_category__cast_type
     Union all 
     SELECT
-      -1 as category_key
+      0 as category_key
       ,'Undefined' as category_name
       ,-1 as parent_category_key
       ,-1 as category_level
