@@ -2,7 +2,7 @@ WITH dim_category_target__year as (
   SELECT DISTINCT
     year
   FROM
-    {{ref('dim_external_category_target')}}
+    {{ref('fact_external_category_target')}}
 ),
 dim_category_target__enrich_year as (
   SELECT
@@ -20,7 +20,7 @@ SELECT
 FROM
   dim_category_target__enrich_year as dim_map_bridge
 LEFT JOIN
-  {{ref('dim_external_category_target')}} as dim_target
+  {{ref('fact_external_category_target')}} as dim_target
 ON
   dim_map_bridge.child_category_key = dim_target.category_key
 GROUP BY
